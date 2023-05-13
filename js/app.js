@@ -1,3 +1,4 @@
+// declared state of form
 let state = {
   price: getNumber(document.querySelector('[name="price"]').value),
   loan_years: document.querySelector('[name="loan_years"]').value,
@@ -7,6 +8,8 @@ let state = {
   home_insurance: document.querySelector('[name="home_insurance"]').value,
   hoa: document.querySelector('[name="hoa"]').value,
 }
+
+// declared variables for calculations
 let totalLoan,
 totalMonths,
 monthlyInterest,
@@ -33,29 +36,35 @@ borderColor = [
   "rgba(255, 159, 64, 1)"
 ];
 
-
+// removes characters and returns numbers only
 function getNumber(str) {
   return Number(str.replace(/[^0-9\.-]+/g, ""))
 }
 
-const ctx = document.getElementById('myChart').getContext('2d');
+// Initialize chart.js instance
+let ctx = document.getElementById('myChart').getContext('2d');
 
 let myChart = new Chart(ctx, {
-  type: 'bar',
+  type: 'doughnut',
   data: {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    labels: labels,
     datasets: [{
       label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
+      data: [
+        monthlyPrincipalInterest,
+        monthlyPropertyTaxes,
+        monthlyHomeInsurance,
+        monthlyHOA
+      ],
+      backgroundColor: backgroundColor,
+      borderColor: borderColor,
       borderWidth: 1
     }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
   }
 });
+
+myChart.options.animation = false;
+
+// add event listener to input fields
+
 console.log(state);
