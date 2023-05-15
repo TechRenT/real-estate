@@ -66,5 +66,16 @@ let myChart = new Chart(ctx, {
 myChart.options.animation = false;
 
 // add event listener to input fields
+let i;
+let inputTexts = document.getElementsByClassName('form-group__textInput');
+for (i = 0; i < inputTexts.length; i++) {
+  inputTexts[i].addEventListener('input', updateInputsState);
+}
 
-console.log(state);
+function updateInputsState(event) {
+  let name = event.target.name;
+  let value = event.target.value;
+
+  console.log(event);
+}
+console.log(inputTexts);
