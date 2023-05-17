@@ -72,10 +72,26 @@ for (i = 0; i < inputTexts.length; i++) {
   inputTexts[i].addEventListener('input', updateInputsState);
 }
 
+let inputSlides = document.getElementsByClassName('form-group__range-slide');
+for (i = 0; i < inputSlides.length; i++) {
+  inputSlides[i].addEventListener('input', updateInputsState);
+}
+
 function updateInputsState(event) {
   let name = event.target.name;
   let value = event.target.value;
+  if (name == 'price') {
+    value = getNumber(value);
+  }
 
-  console.log(event);
+  if (event.target.type == 'range') {
+    let total = (document.getElementsByClassName(`total__${name}`))[0].innerHTML = `${value}%`;
+  }
+
+  state = {
+    ...state,
+    [name]: value
+  }
+  console.log(state);
 }
 console.log(inputTexts);
