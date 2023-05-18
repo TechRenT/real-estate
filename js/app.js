@@ -85,7 +85,7 @@ function updateInputsState(event) {
   }
 
   if (event.target.type == 'range') {
-    let total = (document.getElementsByClassName(`total__${name}`))[0].innerHTML = `${value}%`;
+    let total = (document.getElementsByClassName(`total__${name}`))[0].innerHTML = `${value}`;
   }
 
   state = {
@@ -94,4 +94,17 @@ function updateInputsState(event) {
   }
   console.log(state);
 }
+
+document.getElementsByTagName('form')[0].addEventListener('submit', (event) => {
+  event.preventDefault();
+  document.getElementsByClassName('mg-page__right')[0].classList.add('mg-page__right--animate');
+})
+
+function calculateData() {
+  totalLoan = state.price - state.price * (state.down_payment / 100);
+  totalMonths = state.loan_years * 12;
+  monthlyInterest = (state.interest_rate / 100) / 12;
+  monthlyPrincipalInterest = "temp";
+}
+
 console.log(inputTexts);
