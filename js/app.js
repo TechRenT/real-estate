@@ -92,19 +92,27 @@ function updateInputsState(event) {
     ...state,
     [name]: value
   }
-  console.log(state);
+  calculateData();
 }
 
 document.getElementsByTagName('form')[0].addEventListener('submit', (event) => {
   event.preventDefault();
   document.getElementsByClassName('mg-page__right')[0].classList.add('mg-page__right--animate');
+  calculateData()
 })
 
 function calculateData() {
   totalLoan = state.price - state.price * (state.down_payment / 100);
   totalMonths = state.loan_years * 12;
   monthlyInterest = (state.interest_rate / 100) / 12;
-  monthlyPrincipalInterest = "temp";
+  monthlyPrincipalInterest = (
+    totalLoan *
+    (
+      (monthlyInterest * ( (1 + monthlyInterest) ** totalMonths) ) /
+      ((1 + monthlyInterest) ** totalMonths - 1 )
+    )
+  ).toFixed(2);
+  console.log(monthlyPrincipalInterest);
 }
 
 console.log(inputTexts);
